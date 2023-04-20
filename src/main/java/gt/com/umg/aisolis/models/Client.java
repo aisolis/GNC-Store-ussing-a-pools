@@ -9,17 +9,17 @@ import java.util.Objects;
  */
 public class Client {
     
-    private BigInteger dbid;
+    private int dbid;
     private String nit;
     private String fullName;
     private String address;
-    private String celphone;
+    private int celphone;
     private String mail;
 
     public Client() {
     }
 
-    public Client(BigInteger dbid, String nit, String fullName, String address, String celphone, String mail) {
+    public Client(int dbid, String nit, String fullName, String address, int celphone, String mail) {
         this.dbid = dbid;
         this.nit = nit;
         this.fullName = fullName;
@@ -28,11 +28,19 @@ public class Client {
         this.mail = mail;
     }
 
-    public BigInteger getDbid() {
+    public Client(String nit, String fullName, String address, int celphone, String mail) {
+        this.nit = nit;
+        this.fullName = fullName;
+        this.address = address;
+        this.celphone = celphone;
+        this.mail = mail;
+    }
+
+    public int getDbid() {
         return dbid;
     }
 
-    public void setDbid(BigInteger dbid) {
+    public void setDbid(int dbid) {
         this.dbid = dbid;
     }
 
@@ -60,11 +68,11 @@ public class Client {
         this.address = address;
     }
 
-    public String getCelphone() {
+    public int getCelphone() {
         return celphone;
     }
 
-    public void setCelphone(String celphone) {
+    public void setCelphone(int celphone) {
         this.celphone = celphone;
     }
 

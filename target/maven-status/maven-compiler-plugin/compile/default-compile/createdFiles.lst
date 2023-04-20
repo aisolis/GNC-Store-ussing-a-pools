@@ -1,2 +1,8 @@
 gt\com\umg\aisolis\models\Product.class
-gt\com\umg\aisolis\dao\Connection.class
+gt\com\umg\aisolis\models\Client.class
+gt\com\umg\aisolis\dao\ConnectJdbc.class
+gt\com\umg\aisolis\models\SaleDetail.class
+gt\com\umg\aisolis\views\MainForm$1.class
+gt\com\umg\aisolis\dao\ProductDao.class
+gt\com\umg\aisolis\models\Sale.class
+gt\com\umg\aisolis\views\MainForm.class

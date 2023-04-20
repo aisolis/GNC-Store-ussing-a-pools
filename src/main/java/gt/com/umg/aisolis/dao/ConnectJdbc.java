@@ -18,7 +18,8 @@ import java.util.logging.Logger;
  */
 public class ConnectJdbc {
     
-    private static final String JDBC_URL = "jdbc:sqlserver://DESKTOP-LUQ77GC\\MSSQLSERVER:1433;databaseName=master;encrypt=false";
+    //private static final String JDBC_URL = "jdbc:sqlserver://DESKTOP-LUQ77GC\\MSSQLSERVER:1433;databaseName=master;encrypt=false";
+    private static final String JDBC_URL = "jdbc:sqlserver://LT5490-9X75QQ2\\MSSQLSERVER:1433;databaseName=master;encrypt=false";
     private static final String USER = "sa";
     private static final String PWD = "@lderI.28*";
 

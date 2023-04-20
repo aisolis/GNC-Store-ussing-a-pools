@@ -1,8 +1,7 @@
-C:\Users\swords\Documents\NetBeansProjects\Gnc_Store\src\main\java\gt\com\umg\aisolis\models\Product.java
-C:\Users\swords\Documents\NetBeansProjects\Gnc_Store\src\main\java\gt\com\umg\aisolis\dao\TbProductoJpaController.java
-C:\Users\swords\Documents\NetBeansProjects\Gnc_Store\src\main\java\gt\com\umg\aisolis\views\MainForm.java
-C:\Users\swords\Documents\NetBeansProjects\Gnc_Store\src\main\java\gt\com\umg\aisolis\dao\exceptions\NonexistentEntityException.java
-C:\Users\swords\Documents\NetBeansProjects\Gnc_Store\src\main\java\gt\com\umg\aisolis\dao\exceptions\PreexistingEntityException.java
-C:\Users\swords\Documents\NetBeansProjects\Gnc_Store\src\main\java\gt\com\umg\aisolis\dao\Connection.java
-C:\Users\swords\Documents\NetBeansProjects\Gnc_Store\src\main\java\gt\com\umg\aisolis\models\TbProducto.java
-C:\Users\swords\Documents\NetBeansProjects\Gnc_Store\src\main\java\gt\com\umg\aisolis\dao\exceptions\IllegalOrphanException.java
+C:\Users\aisolis\Documents\personal\GNC-Store-ussing-a-pools\src\main\java\gt\com\umg\aisolis\models\Client.java
+C:\Users\aisolis\Documents\personal\GNC-Store-ussing-a-pools\src\main\java\gt\com\umg\aisolis\models\Product.java
+C:\Users\aisolis\Documents\personal\GNC-Store-ussing-a-pools\src\main\java\gt\com\umg\aisolis\views\MainForm.java
+C:\Users\aisolis\Documents\personal\GNC-Store-ussing-a-pools\src\main\java\gt\com\umg\aisolis\dao\ProductDao.java
+C:\Users\aisolis\Documents\personal\GNC-Store-ussing-a-pools\src\main\java\gt\com\umg\aisolis\models\Sale.java
+C:\Users\aisolis\Documents\personal\GNC-Store-ussing-a-pools\src\main\java\gt\com\umg\aisolis\dao\ConnectJdbc.java
+C:\Users\aisolis\Documents\personal\GNC-Store-ussing-a-pools\src\main\java\gt\com\umg\aisolis\models\SaleDetail.java

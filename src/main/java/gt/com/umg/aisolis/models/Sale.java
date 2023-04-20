@@ -1,6 +1,5 @@
 package gt.com.umg.aisolis.models;
 
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.Objects;
 
@@ -10,7 +9,7 @@ import java.util.Objects;
  */
 public class Sale {
     
-    private BigInteger invoice;
+    private int invoice;
     private String nit;
     private Date saleDate;
     private int source;
@@ -19,7 +18,7 @@ public class Sale {
     public Sale() {
     }
 
-    public Sale(BigInteger invoice, String nit, Date saleDate, int source, String status) {
+    public Sale(int invoice, String nit, Date saleDate, int source, String status) {
         this.invoice = invoice;
         this.nit = nit;
         this.saleDate = saleDate;
@@ -27,11 +26,20 @@ public class Sale {
         this.status = status;
     }
 
-    public BigInteger getInvoice() {
+    public Sale(String nit, Date saleDate, int source, String status) {
+        this.nit = nit;
+        this.saleDate = saleDate;
+        this.source = source;
+        this.status = status;
+    }
+    
+    
+
+    public int getInvoice() {
         return invoice;
     }
 
-    public void setInvoice(BigInteger invoice) {
+    public void setInvoice(int invoice) {
         this.invoice = invoice;
     }
 

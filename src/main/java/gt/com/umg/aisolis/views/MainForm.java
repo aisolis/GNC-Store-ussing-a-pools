@@ -4,20 +4,39 @@
  */
 package gt.com.umg.aisolis.views;
 
+import gt.com.umg.aisolis.dao.ClientDao;
 import gt.com.umg.aisolis.dao.ProductDao;
+import gt.com.umg.aisolis.dao.SalesDao;
+import gt.com.umg.aisolis.dao.SalesDetailDao;
+import gt.com.umg.aisolis.models.Client;
+import gt.com.umg.aisolis.models.Sale;
+import gt.com.umg.aisolis.models.SaleDetail;
+import java.util.Date;
 
 
 /**
- *
+ 
  * @author swords
  */
 public class MainForm extends javax.swing.JFrame {
 
-    ProductDao productDao = new ProductDao();
+    SalesDao saleDao = new SalesDao();
+    ClientDao clientDao = new ClientDao();
+    SalesDetailDao sdd = new SalesDetailDao();
     
     public MainForm() {
         initComponents();
-        System.out.println(productDao.findAll().size());
+        //Client client = new Client("123456789","Lucia", "prueba", 12345678, "correo");
+        //clientDao.merge(client);
+        //Sale sale = new Sale("123456789",new Date(), 1, "A");
+        //System.out.println(saleDao.findAll().size());
+        //saleDao.merge(sale);
+        //System.out.println(saleDao.findAll().size());
+        SaleDetail sd = new SaleDetail(2,2,1,12.56);
+        sdd.merge(sd);
+        SaleDetail sd1 = new SaleDetail(2,2,1,12.90);
+        sdd.merge(sd1);
+        System.out.println(sdd.findByInvoice(2).toString());
     }
 
     /**

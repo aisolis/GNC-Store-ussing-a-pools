@@ -1,6 +1,5 @@
 package gt.com.umg.aisolis.models;
 
-import java.math.BigInteger;
 import java.util.Objects;
 
 /**
@@ -9,16 +8,16 @@ import java.util.Objects;
  */
 public class SaleDetail {
     
-   private BigInteger dbid;
-   private BigInteger invoice;
-   private BigInteger codProd;
+   private int dbid;
+   private int invoice;
+   private int codProd;
    private int quantity;
    private double price;
 
     public SaleDetail() {
     }
 
-    public SaleDetail(BigInteger dbid, BigInteger invoice, BigInteger codProd, int quantity, double price) {
+    public SaleDetail(int dbid, int invoice, int codProd, int quantity, double price) {
         this.dbid = dbid;
         this.invoice = invoice;
         this.codProd = codProd;
@@ -26,27 +25,36 @@ public class SaleDetail {
         this.price = price;
     }
 
-    public BigInteger getDbid() {
+    public SaleDetail(int invoice, int codProd, int quantity, double price) {
+        this.invoice = invoice;
+        this.codProd = codProd;
+        this.quantity = quantity;
+        this.price = price;
+    }
+    
+    
+
+    public int getDbid() {
         return dbid;
     }
 
-    public void setDbid(BigInteger dbid) {
+    public void setDbid(int dbid) {
         this.dbid = dbid;
     }
 
-    public BigInteger getInvoice() {
+    public int getInvoice() {
         return invoice;
     }
 
-    public void setInvoice(BigInteger invoice) {
+    public void setInvoice(int invoice) {
         this.invoice = invoice;
     }
 
-    public BigInteger getCodProd() {
+    public int getCodProd() {
         return codProd;
     }
 
-    public void setCodProd(BigInteger codProd) {
+    public void setCodProd(int codProd) {
         this.codProd = codProd;
     }
 
