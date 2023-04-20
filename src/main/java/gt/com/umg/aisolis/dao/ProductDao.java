@@ -97,7 +97,7 @@ public class ProductDao {
     }
     
     public int getNextCodProd(){
-        int tmp = 0;
+        int tmp = 1;
         try {
             LinkedList<Product> products = new LinkedList<>();
             

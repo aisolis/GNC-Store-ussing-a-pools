@@ -37,6 +37,22 @@ public class Product {
         this.status = status;
     }
 
+    public Product(String name, int Stock, double price, String description, String whatIs, String forWhat, String benefits, String ussageWay, String ingredients, String warnings, String status) {
+        this.name = name;
+        this.Stock = Stock;
+        this.price = price;
+        this.description = description;
+        this.whatIs = whatIs;
+        this.forWhat = forWhat;
+        this.benefits = benefits;
+        this.ussageWay = ussageWay;
+        this.ingredients = ingredients;
+        this.warnings = warnings;
+        this.status = status;
+    }
+    
+    
+
     public int getCod_prod() {
         return cod_prod;
     }
