@@ -26,7 +26,6 @@ public class ProductDao {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Product product = new Product();
         List<Product> products = new ArrayList<>();
         try {
             conn = ConnectJdbc.getConnection();
@@ -34,6 +33,7 @@ public class ProductDao {
             rs = stmt.executeQuery();
             
             while(rs.next()){
+                Product product = new Product();
                 product.setCod_prod(rs.getInt("COD_PRODUCTO"));
                 product.setName(rs.getString("NOMBRE"));
                 product.setStock(rs.getInt("STOCK"));

@@ -1,6 +1,5 @@
 package gt.com.umg.aisolis.models;
 
-import java.math.BigInteger;
 import java.util.Objects;
 
 /**

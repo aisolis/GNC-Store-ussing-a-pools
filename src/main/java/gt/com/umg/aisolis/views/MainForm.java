@@ -7,9 +7,8 @@ package gt.com.umg.aisolis.views;
 import gt.com.umg.aisolis.dao.ClientDao;
 import gt.com.umg.aisolis.dao.SalesDao;
 import gt.com.umg.aisolis.dao.SalesDetailDao;
-import gt.com.umg.aisolis.models.Client;
-import gt.com.umg.aisolis.models.Sale;
-import gt.com.umg.aisolis.models.SaleDetail;
+import gt.com.umg.aisolis.views.clients.ClientList;
+import gt.com.umg.aisolis.views.clients.RegisterClient;
 import gt.com.umg.aisolis.views.products.ProductList;
 import gt.com.umg.aisolis.views.products.RegisterProduct;
 
@@ -26,17 +25,6 @@ public class MainForm extends javax.swing.JFrame {
     
     public MainForm() {
         initComponents();
-        //Client client = new Client("123456789","Lucia", "prueba", 12345678, "correo");
-        //clientDao.merge(client);
-        //Sale sale = new Sale("123456789",new Date(), 1, "A");
-        //System.out.println(saleDao.findAll().size());
-        //saleDao.merge(sale);
-        //System.out.println(saleDao.findAll().size());
-        //SaleDetail sd = new SaleDetail(2,2,1,12.56);
-        //sdd.merge(sd);
-        //SaleDetail sd1 = new SaleDetail(2,2,1,12.90);
-        //sdd.merge(sd1);
-        //System.out.println(sdd.findByInvoice(2).toString());
     }
 
     /**
@@ -127,9 +115,19 @@ public class MainForm extends javax.swing.JFrame {
         clientsbtn.setText("Clientes");
 
         jMenuItem4.setText("Registrar cliente");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         clientsbtn.add(jMenuItem4);
 
         jMenuItem5.setText("Listado de clientes");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         clientsbtn.add(jMenuItem5);
 
         jMenuBar1.add(clientsbtn);
@@ -163,14 +161,22 @@ public class MainForm extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         RegisterProduct rp = new RegisterProduct();
         rp.show();
-        this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         ProductList pl =  new ProductList();
         pl.show();
-        this.dispose();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        RegisterClient rc = new RegisterClient();
+        rc.show();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+       ClientList cl = new ClientList();
+       cl.show();
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments

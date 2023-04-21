@@ -29,7 +29,6 @@ public class ClientDao {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Client client = new Client();
         List<Client> clients = new ArrayList<>();
         try {
             conn = ConnectJdbc.getConnection();
@@ -37,6 +36,7 @@ public class ClientDao {
             rs = stmt.executeQuery();
             
             while(rs.next()){
+                Client client = new Client();
                 client.setDbid(rs.getInt("DBID"));
                 client.setNit(rs.getString("NIT"));
                 client.setFullName(rs.getString("NOMBRE"));

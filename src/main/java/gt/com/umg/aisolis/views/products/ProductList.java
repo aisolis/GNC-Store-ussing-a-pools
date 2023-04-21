@@ -4,9 +4,12 @@
  */
 package gt.com.umg.aisolis.views.products;
 
+import gt.com.umg.aisolis.dao.ProductDao;
 import gt.com.umg.aisolis.models.Product;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,50 +19,45 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ProductList extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ProductList
-     */
-    DefaultTableModel modelo = new DefaultTableModel();
+    ProductDao productDao = new ProductDao();
+    List<Product> products = new ArrayList<>();
+    
     public ProductList() {
         initComponents();
-        initialice();
+        products = productDao.findAll();
+        initialiceTable(products);
     }
     
-    private void initialice(){
-        List<Product> products = new ArrayList<>();
-        modelo.addColumn("Codigo de producto");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Stock");
-        modelo.addColumn("Precio");
-        modelo.addColumn("Descripcion");
-        modelo.addColumn("¿Que es?");
-        modelo.addColumn("¿Para que es?");
-        modelo.addColumn("Beneficios");
-        modelo.addColumn("Forma de tomar");
-        modelo.addColumn("Ingredientes");
-        modelo.addColumn("Precauciones");
-        modelo.addColumn("Estatus");
-        
-        for (Product product : products) {
-            Object[] fila = {
-                product.getCod_prod(),
-                product.getName(),
-                product.getStock(),
-                product.getPrice(),
-                product.getDescription(),
-                product.getWhatIs(),
-                product.getForWhat(),
-                product.getBenefits(),
-                product.getUssageWay(),
-                product.getIngredients(),
-                product.getWarnings(),
-                product.getStatus()
-            };
-            modelo.addRow(fila);
+    
+    
+    private void initialiceTable(List<Product> products){
+
+        Object[][] data = new Object[products.size()][12];
+        for (int i = 0; i < products.size(); i++) {
+            Product p = products.get(i);
+            data[i][0] = p.getCod_prod();
+            data[i][1] = p.getName();
+            data[i][2] = p.getStock();
+            data[i][3] = p.getPrice();
+            data[i][4] = p.getDescription();
+            data[i][5] = p.getWhatIs();
+            data[i][6] = p.getForWhat();
+            data[i][7] = p.getBenefits();
+            data[i][8] = p.getUssageWay();
+            data[i][9] = p.getIngredients();
+            data[i][10] = p.getWarnings();
+            data[i][11] = p.getStatus();
         }
         
-        producttable = new JTable(modelo);
+        String[] columnNames = {"Codigo de producto", "Nombre", "Stock", "Precio", "Descripcion", "¿Que es?",
+                        "¿Para que es?", "Beneficios", "Forma de tomar", "Ingredientes", "Precauciones", "Estatus"};
+
+        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+       
+        producttable.setModel(model);
     }
+    
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,13 +70,14 @@ public class ProductList extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        codprod = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        nametxt = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        active = new java.awt.Checkbox();
         jScrollPane1 = new javax.swing.JScrollPane();
         producttable = new javax.swing.JTable();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,12 +86,28 @@ public class ProductList extends javax.swing.JFrame {
 
         jLabel2.setText("Codigo de producto:");
 
+        codprod.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                codprodKeyTyped(evt);
+            }
+        });
+
         jLabel3.setText("Nombre producto");
 
+        nametxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nametxtKeyTyped(evt);
+            }
+        });
+
         jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        active.setLabel("Mostrar solo productos Activos");
-
+        producttable.setAutoCreateRowSorter(true);
         producttable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -104,35 +119,57 @@ public class ProductList extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        producttable.setEnabled(false);
+        producttable.setRowSorter(null);
+        producttable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(producttable);
+
+        jCheckBox1.setText("Mostrar solo productos Activos");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Cambiar estado");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(407, 407, 407)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(active, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(codprod, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(nametxt, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jCheckBox1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
                                 .addGap(26, 26, 26)
-                                .addComponent(jButton1))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                                .addComponent(jButton1))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2)))))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,19 +179,84 @@ public class ProductList extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(codprod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(active, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBox1)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        List<Product> tmp = new ArrayList<>();
+        if(!"".equals(codprod.getText().trim())){
+            tmp.add(productDao.findById(Integer.parseInt(codprod.getText().trim())));
+        }
+        if(!"".equals(nametxt.getText().trim())){
+            tmp = products.stream()
+                    .filter(product -> product.getName().toUpperCase().contains(nametxt.getText().trim().toUpperCase()))
+                    .collect(Collectors.toList());
+        }
+        if("".equals(codprod.getText().trim()) && "".equals(nametxt.getText().trim())){
+            tmp = products;
+        }
+        initialiceTable(tmp);   
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        List<Product> tmp = new ArrayList<>();
+        if(jCheckBox1.isSelected()){         
+            if(!products.isEmpty()){
+                System.out.println(products.toString());
+                products.forEach(product -> System.out.println(product.getStatus()));
+                tmp = products.stream().filter(product -> "A".equals(product.getStatus().toUpperCase())).collect(Collectors.toList());
+            }
+            //System.out.println(tmp.toString());
+        }else{
+            tmp = productDao.findAll();
+        }
+        initialiceTable(tmp);
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void codprodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codprodKeyTyped
+        if(!"".equals(codprod.getText())){
+            nametxt.setText("");
+        }
+        
+    }//GEN-LAST:event_codprodKeyTyped
+
+    private void nametxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nametxtKeyTyped
+        if(!"".equals(nametxt.getText())){
+            codprod.setText("");
+        }
+    }//GEN-LAST:event_nametxtKeyTyped
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(!"".equals(codprod.getText()) && !products.isEmpty()){
+            Product producto = products.stream().filter(product -> product.getCod_prod() == Integer.parseInt(codprod.getText())).collect(Collectors.toList()).get(0);
+            String status = ("A".equals(producto.getStatus())) ? "Activo" : "Inactivo";
+            String contrario = ("Activo".equals(status)) ? "Inactivo" : "Activo";
+            int option = JOptionPane.showOptionDialog(null, "¿Deseas modificar el estado de " + status + " a " + contrario + "?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Sí", "No"}, "Sí");
+            if (option == JOptionPane.YES_OPTION) { 
+                producto.setStatus(("A".equals(producto.getStatus())) ? "I" : "A");
+                int result = productDao.merge(producto, producto.getCod_prod());
+                if(result == 1){
+                    initialiceTable(products);
+                   JOptionPane.showConfirmDialog(null, "Se cambio el estado del producto " + producto.getName(), "Confirmación", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+                }
+                
+            }
+
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,14 +294,15 @@ public class ProductList extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Checkbox active;
+    private javax.swing.JTextField codprod;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField nametxt;
     private javax.swing.JTable producttable;
     // End of variables declaration//GEN-END:variables
 }
