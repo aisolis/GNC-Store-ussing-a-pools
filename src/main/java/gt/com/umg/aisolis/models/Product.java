@@ -18,6 +18,9 @@ public class Product {
     private String ingredients;
     private String warnings;
     private String status;
+    
+    private int quantity;
+    private double subtotal;
 
     public Product() {
     }
@@ -148,6 +151,24 @@ public class Product {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
+    }
+    
+    
 
     @Override
     public String toString() {

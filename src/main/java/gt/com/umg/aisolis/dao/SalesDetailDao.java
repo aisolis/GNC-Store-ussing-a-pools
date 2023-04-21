@@ -24,7 +24,6 @@ public class SalesDetailDao {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        SaleDetail saleDetail = new SaleDetail();
         List<SaleDetail> details = new ArrayList<>();
         try {
             conn = ConnectJdbc.getConnection();
@@ -33,6 +32,7 @@ public class SalesDetailDao {
             rs = stmt.executeQuery();
             
             while(rs.next()){
+                SaleDetail saleDetail = new SaleDetail();
                 saleDetail.setDbid(rs.getInt("ID_DETALLE"));
                 saleDetail.setInvoice(rs.getInt("FACTURA"));
                 saleDetail.setCodProd(rs.getInt("COD_PRODUCTO"));

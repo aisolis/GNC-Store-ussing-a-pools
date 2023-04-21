@@ -41,6 +41,7 @@ public class RegisterClient extends javax.swing.JFrame {
         mail = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,6 +68,9 @@ public class RegisterClient extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel6.setText("Registro de cliente");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,11 +107,17 @@ public class RegisterClient extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(237, 237, 237))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -140,7 +150,7 @@ public class RegisterClient extends javax.swing.JFrame {
             if(client1.getNit() == null){
                 Client client = new Client(nit.getText().trim(),name.getText().trim(),address.getText().trim(),Integer.parseInt(celphone.getText().trim()),mail.getText().trim());
                 int rs = cd.merge(client);
-                int confirm = JOptionPane.showConfirmDialog(null, " Se registro el cliente" + client.getFullName(), "Confirmación", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+                int confirm = JOptionPane.showConfirmDialog(null, " Se registro el cliente " + client.getFullName(), "Confirmación", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
 
                 if (confirm == JOptionPane.OK_OPTION) {
                     this.dispose();
@@ -201,6 +211,7 @@ public class RegisterClient extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField mail;
     private javax.swing.JTextField name;
     private javax.swing.JTextField nit;

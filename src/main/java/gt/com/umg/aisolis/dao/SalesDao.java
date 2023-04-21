@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -19,6 +20,7 @@ import java.util.List;
 public class SalesDao {
     
     private static final String SELECT_ALL = "SELECT * FROM TB_VENTA";
+    private static final String SELECT_BY_FAC = "SELECT * FROM TB_VENTA WHERE FACTURA = ?";
     private static final String MERGE = "INSERT INTO TB_VENTA(NIT, FECHA, MEDIO, ESTATUS) VALUES (?,?,?,?)";
     
     public List<Sale> findAll(){
@@ -52,6 +54,36 @@ public class SalesDao {
         return sales;
     }
     
+    public Sale findByInvoice(int invoice){
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Sale sale = new Sale();
+        try {
+            conn = ConnectJdbc.getConnection();
+            stmt = conn.prepareStatement(SELECT_BY_FAC);
+            stmt.setInt(1, invoice);
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                sale.setInvoice(rs.getInt("FACTURA"));
+                sale.setNit(rs.getString("NIT"));
+                sale.setSaleDate(rs.getDate("FECHA"));
+                sale.setSource(rs.getInt("MEDIO"));
+                sale.setStatus(rs.getString("ESTATUS"));
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }finally{
+            ConnectJdbc.close(rs);
+            ConnectJdbc.close(stmt);
+            ConnectJdbc.close(conn);
+        }
+        return sale;
+    }
+    
     public int merge(Sale sale){
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -68,6 +100,21 @@ public class SalesDao {
             e.printStackTrace(System.out);
         }
         return output;
+    }
+    
+    public int getInvoice(){
+        int tmp = 1;
+        try {
+            LinkedList<Sale> products = new LinkedList<>();
+            
+            products.addAll(findAll());
+            if(!products.isEmpty()){
+                tmp = products.getLast().getInvoice();
+            }
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+        }
+        return tmp;
     }
     
 }

@@ -7,6 +7,8 @@ package gt.com.umg.aisolis.views;
 import gt.com.umg.aisolis.dao.ClientDao;
 import gt.com.umg.aisolis.dao.SalesDao;
 import gt.com.umg.aisolis.dao.SalesDetailDao;
+import gt.com.umg.aisolis.views.Sales.MakeaSale;
+import gt.com.umg.aisolis.views.Sales.ReviewASale;
 import gt.com.umg.aisolis.views.clients.ClientList;
 import gt.com.umg.aisolis.views.clients.RegisterClient;
 import gt.com.umg.aisolis.views.products.ProductList;
@@ -18,10 +20,6 @@ import gt.com.umg.aisolis.views.products.RegisterProduct;
  * @author swords
  */
 public class MainForm extends javax.swing.JFrame {
-
-    SalesDao saleDao = new SalesDao();
-    ClientDao clientDao = new ClientDao();
-    SalesDetailDao sdd = new SalesDetailDao();
     
     public MainForm() {
         initComponents();
@@ -135,9 +133,19 @@ public class MainForm extends javax.swing.JFrame {
         salebtn.setText("Vender");
 
         jMenuItem6.setText("Registrar Venta");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         salebtn.add(jMenuItem6);
 
-        jMenuItem7.setText("Listado de ventas");
+        jMenuItem7.setText("Buscar una venta");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         salebtn.add(jMenuItem7);
 
         jMenuBar1.add(salebtn);
@@ -177,6 +185,16 @@ public class MainForm extends javax.swing.JFrame {
        ClientList cl = new ClientList();
        cl.show();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        MakeaSale ms = new MakeaSale();
+        ms.show();
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        ReviewASale ras = new ReviewASale();
+        ras.show();
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments
