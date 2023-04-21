@@ -140,7 +140,7 @@ public class MakeaSale extends javax.swing.JFrame {
         remove = new javax.swing.JButton();
         registry = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         total.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         total.setText("Total:");
